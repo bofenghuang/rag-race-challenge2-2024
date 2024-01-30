@@ -1,0 +1,20 @@
+[submodule "platforms-doc-declarations"]
+	path = platforms-doc-declarations
+	url = https://code.peren.fr/hackathon-2024/retrieval-modules/platforms-doc-declarations.git
+	branch = main
+[submodule "platforms-doc-parsing"]
+	path = platforms-doc-parsing
+	url = https://code.peren.fr/hackathon-2024/parsing-tool/platforms-doc-parsing.git
+	branch = main
+[submodule "platform-docs-snapshots"]
+	path = platform-docs-snapshots
+	url = https://code.peren.fr/hackathon-2024/retrieval-modules/platform-docs-snapshots.git
+	branch = main
+[submodule "platform-docs-versions"]
+	path = platform-docs-versions
+	url = https://code.peren.fr/hackathon-2024/retrieval-modules/platform-docs-versions.git
+	branch = main
+[submodule "challenge-2-dataset-and-documentation"]
+	path = challenge-2-dataset-and-documentation
+	url = https://code.peren.fr/hackathon-2024/challenge-2-dataset-and-documentation.git
+	branch = main
