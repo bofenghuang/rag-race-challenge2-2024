@@ -1,0 +1,158 @@
+{
+  "platform_name": "X",
+  "endpoint_name": "Usage tweets",
+  "endpoint_url": "https://api.twitter.com/2/usage/tweets",
+  "http_method": "GET",
+  "target_audience": "developers",
+  "description": "Get the Tweet usage within the context of a project",
+  "quota": [
+    {
+      "threshold": 50,
+      "object_unit": "requests",
+      "time_unit": "minutes",
+      "additional_information": ""
+    }
+  ],
+  "response_data": [
+    {
+      "name": "data",
+      "type": "ResponseData",
+      "description": "",
+      "example": "{\"data\": {\"cap_reset_day\": 10,\"project_cap\": \"5000000000\",\"project_id\": \"1369785403853424\",\"project_usage\": \"43435\"}"
+    }
+  ],
+  "query_parameters": [
+    {
+      "name": "days",
+      "type": "number",
+      "description": "The number of days for which you need the Tweet usage for. You can get usage for upto 90 days.",
+      "is_required": false,
+      "example": ""
+    },
+    {
+      "name": "usage.fields",
+      "type": "enum(daily_client_app_usage, daily_project_usage)",
+      "description": "This parameter is used to specify if you want the daily usage returned and at a client app level.",
+      "is_required": false,
+      "example": ""
+    }
+  ],
+  "example_query": "```curl 'https://api.twitter.com/2/usage/tweets' --header 'Authorization: Bearer XXXXX'```",
+  "example_response": "",
+  "data_structures": [
+    {
+      "name": "ResponseData",
+      "content": [
+        {
+          "name": "cap_reset_day",
+          "type": "int",
+          "description": "The day of the month when the Tweet cap is reset."
+        },
+        {
+          "name": "project_cap",
+          "type": "string",
+          "description": "The total number of Tweets that can be read with this project per month."
+        },
+        {
+          "name": "project_id",
+          "type": "string",
+          "description": "The unique identifier for this project."
+        },
+        {
+          "name": "project_usage",
+          "type": "string",
+          "description": "The total number of Tweets that have been read with this project in the current billing cycle."
+        },
+        {
+          "name": "daily_project_usage",
+          "type": "DailyProjectUsage",
+          "description": "This object and its fields contain daily usage breakdown for a project."
+        },
+        {
+          "name": "daily_client_app_usage",
+          "type": "DailyClientAppUsage",
+          "description": "This object and its fields contain daily usage breakdown per client app."
+        }
+      ]
+    },
+    {
+      "name": "DailyProjectUsage",
+      "content": [
+        {
+          "name": "project_id",
+          "type": "int",
+          "description": "The unique identifier for this project."
+        },
+        {
+          "name": "usage",
+          "type": "Usage",
+          "description": "This array contains the usage information."
+        }
+      ]
+    },
+    {
+      "name": "DailyClientAppUsage",
+      "content": [
+        {
+          "name": "usage",
+          "type": "Usage",
+          "description": "This array contains the usage information."
+        }
+      ]
+    },
+    {
+      "name": "Usage",
+      "content": [
+        {
+          "name": "date",
+          "type": "date (ISO 8601)",
+          "description": "The date for which the usage is returned."
+        },
+        {
+          "name": "usage",
+          "type": "string",
+          "description": "The project usage for a day."
+        }
+      ]
+    }
+  ],
+  "other_information": [
+    {
+      "name": "Headers",
+      "content": [
+        {
+          "key": "Bearer token",
+          "type": "string",
+          "description": "",
+          "example": "Authorization: Bearer XXXX",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Description",
+      "content": "The Usage API in the Twitter API v2 allows developers to programmatically retrieve their project usage. Using thie endpoint, developers can keep a track and monitor of the number of Tweets they have pulled for a given billing cycle. \n\nDevelopers can use the GET endpoint to get the daily project usage for upto the last 90 days. The usage can also be aggregated per client app connected to your peoject."
+    },
+    {
+      "name": "Account setup",
+      "content": "To access these endpoints, you will need:\n\nAn approved developer account.\nTo authenticate using the keys and tokens from a developer App that is located within a Project.\n\nLearn more about getting access to the Twitter API v2 endpoints in our getting started guide."
+    },
+    {
+      "name": "Additional example",
+      "content": "```{\"data\": {\"daily_client_app_usage\":[{\"usage\":[{\"date\":\"2023-11-01T00:00:00.000Z\",\"usage\": \"200\"}],\"client_app_id\": \"101111140\",\"usage_result_count\": 1}],\"project_cap\": \"2000000\",\"daily_project_usage\":{\"project_id\": \"1281043626347900822499\",\"usage\": [{\"date\": \"2023-11-01T00:00:00.000Z\",\"usage\": \"200\"}]},\"project_usage\": \"200\",\"cap_reset_day\": 5,\"project_id\": \"1281043626347900822499\"} }```"
+    },
+    {
+      "name": "Example code with official SDKs",
+      "content": [
+        {
+          "language": "TypeScript",
+          "code": "```async () => {try {const getUsage = await twitterClient.usage.getUsage(); console.dir(getUsage, {depth: null,});} catch (error) {console.log(error);}})();```"
+        },
+        {
+          "language": "Java",
+          "code": "```try {UsageResponse result = apiInstance.usage().getUsage();System.out.println(result);} catch (ApiException e) {System.err.println(\"Exception when calling UsageApi#getUsage\");System.err.println(\"Status code: \" + e.getCode());System.err.println(\"Reason: \" + e.getResponseBody());System.err.println(\"Response headers: \" + e.getResponseHeaders());e.printStackTrace();}```"
+        }
+      ]
+    }
+  ]
+}

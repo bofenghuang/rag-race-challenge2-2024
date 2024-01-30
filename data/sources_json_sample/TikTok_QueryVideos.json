@@ -1,0 +1,301 @@
+{
+  "platform_name": "TikTok",
+  "endpoint_name": "Query Videos",
+  "endpoint_url": "https://open.tiktokapis.com/v2/research/video/query/",
+  "http_method": "POST",
+  "target_audience": "research",
+  "description": "",
+  "quota": [],
+  "response_data": [
+    {
+      "name": "data",
+      "type": "QueryVideoResponseData",
+      "description": "",
+      "example": "{\"videos\": [...],\"cursor\": 100,\"has_more\": true,\"search_id\": \"\"}"
+    },
+    {
+      "name": "error",
+      "type": "ErrorStruct",
+      "description": "",
+      "example": "Error object"
+    }
+  ],
+  "query_parameters": [
+    {
+      "name": "query",
+      "type": "Query object",
+      "description": "A JSON object that contains three types of children: and, or, and not, each of which is a list of conditions. An valid query must contain at least one non-empty and, or or not condition lists",
+      "is_required": true,
+      "example": "```{\"and\":[{\"operation\":\"IN\",\"field_name\":\"region_code\",\"field_values\":[\"JP\",\"US\"]},{\"operation\":\"EQ\",\"field_name\":\"keyword\",\"field_values\":[\"animal\"]}],\"not\":[{\"operation\":\"LT\",\"field_name\":\"create_date\",\"field_values\":[\"20230101\"]}]}}```"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "The lower bound of video creation time in UTC",
+      "is_required": true,
+      "example": "\"20210102\""
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "The upper bound of video creation time in UTC. The end_date must be no more than 30 days after the start_date",
+      "is_required": true,
+      "example": "\"20210123\""
+    },
+    {
+      "name": "max_count",
+      "type": "int64",
+      "description": "The number of videos in response. Default is 20, max is 100. It is possible that the API returns less videos than the max count due to reasons such as videos deleted/marked as private by users etc.",
+      "is_required": false,
+      "example": "20"
+    },
+    {
+      "name": "cursor",
+      "type": "int64",
+      "description": "Retrieve video results starting from the specified index",
+      "is_required": false,
+      "example": "100"
+    },
+    {
+      "name": "search_id",
+      "type": "string",
+      "description": "The unique identifier assigned to a cached search result. This identifier enables the resumption of a prior search and retrieval of additional results based on the same search criteria.",
+      "is_required": false,
+      "example": "\"7201388525814961198\""
+    },
+    {
+      "name": "is_random",
+      "type": "bool",
+      "description": "The flag that indicates whether to return results in a random order. If set to true, then the API returns 1 - 100 videos in random order that matches the query. If set to false or not set with any value, then the API returns results in the decreasing order of video IDs.",
+      "is_required": false,
+      "example": "true"
+    }
+  ],
+  "example_query": "",
+  "example_response": "```{\"data\": {\"videos\": [{\"hashtag_names\": [\"avengers\",\"pov\"],\"region_code\": \"CA\",\"create_time\": 1633823999,\"effect_ids\": [\"0\"],\"video_id\": 702874395068494965,\"music_id\": 703847506349838790,\"video_description\": \"lol #pov #avengers\",\"view_count\": 1050,\"comment_count\": 2},...],\"cursor\": 100,\"search_id\": \"7201388525814961198\",\"has_more\": true},\"error\": {\"code\": \"ok\",\"message\": \"\",\"log_id\": \"20230113024658F0D7C5D6CA3A9B79C5B9\"}}```",
+  "data_structures": [
+    {
+      "name": "Query",
+      "content": [
+        {
+          "name": "and",
+          "type": "list<Condition>",
+          "description": "The and conditions specify that all the conditions in the list must be met"
+        },
+        {
+          "name": "or",
+          "type": "list<Condition>",
+          "description": "The or conditions specify that at least one of the conditions in the list must be met"
+        },
+        {
+          "name": "not",
+          "type": "list<Condition>",
+          "description": "The not conditions specify that none of the conditions in the list must be met"
+        }
+      ]
+    },
+    {
+      "name": "Condition",
+      "content": [
+        {
+          "name": "field_name",
+          "type": "string",
+          "description": "The name of the field this condition is restricting. One of: [\"create_date\", \"username\", \"region_code\",\"video_id\", \"hashtag_name\", \"keyword\", \"music_id\", \"effect_id\", \"video_length\"]"
+        },
+        {
+          "name": "operation",
+          "type": "string",
+          "description": "One of: \"EQ\", \"IN\", \"GT\", \"GTE\", \"LT\", \"LTE\""
+        },
+        {
+          "name": "field_values",
+          "type": "list<string>",
+          "description": "A list of restriction values"
+        }
+      ]
+    },
+    {
+      "name": "QueryVideoResponseData",
+      "content": [
+        {
+          "name": "videos",
+          "type": "list<Video Object>",
+          "description": "A list of video objects that match the query"
+        },
+        {
+          "name": "cursor",
+          "type": "int64",
+          "description": "Returns video results from the given index. "
+        },
+        {
+          "name": "has_more",
+          "type": "bool",
+          "description": "Whether there are more videos or not."
+        },
+        {
+          "name": "search_id",
+          "type": "string",
+          "description": "A search_id is a unique identifier assigned to a cached search result. This identifier enables the resumption of a prior search and retrieval of additional results based on the same search criteria."
+        }
+      ]
+    },
+    {
+      "name": "Video Object",
+      "content": [
+        {
+          "name": "id",
+          "type": "int64",
+          "description": "Unique identifier for the TikTok video. Also called \"item_id\" or \"video_id\""
+        },
+        {
+          "name": "create_time",
+          "type": "int64",
+          "description": "UTC Unix epoch (in seconds) of when the TikTok video was posted. (Inherited field from TNS research API)"
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "description": "The video's author's username"
+        },
+        {
+          "name": "region_code",
+          "type": "string",
+          "description": "A two digit code for the country the video was posted in"
+        },
+        {
+          "name": "video_description",
+          "type": "string",
+          "description": "The description of the video, also known as the title"
+        },
+        {
+          "name": "music_id",
+          "type": "int64",
+          "description": "The music_id used in the video"
+        },
+        {
+          "name": "like_count",
+          "type": "int64",
+          "description": "The number of likes the video has received."
+        },
+        {
+          "name": "comment_count",
+          "type": "int64",
+          "description": "The number of comments the video has received."
+        },
+        {
+          "name": "share_count",
+          "type": "int64",
+          "description": "The number of shares the video has received."
+        },
+        {
+          "name": "view_count",
+          "type": "int64",
+          "description": "The number of video views the video has received."
+        },
+        {
+          "name": "effect_ids",
+          "type": "list<string>",
+          "description": "The list of effect ids applied on the video"
+        },
+        {
+          "name": "hashtag_names",
+          "type": "list<string>",
+          "description": "The list of hashtag names that the video participates in"
+        },
+        {
+          "name": "playlist_id",
+          "type": "int64",
+          "description": "The ID of playlist that the video belongs to"
+        },
+        {
+          "name": "voice_to_text",
+          "type": "string",
+          "description": "Voice to text and subtitles (for videos that have voice to text features on, show the texts already generated)"
+        }
+      ]
+    }
+  ],
+  "other_information": [
+    {
+      "name": "Headers",
+      "content": [
+        {
+          "key": "Content-Type",
+          "type": "string",
+          "description": "Indicate the original media type of the resource.",
+          "example": "\"application/json\"",
+          "required": true
+        },
+        {
+          "key": "Authorization",
+          "type": "string",
+          "description": "The client access token which is obtained through /v2/oauth/token/.",
+          "example": "Bearer clt.example12345Example12345Example",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Body",
+      "content": [
+        {
+          "key": "fields",
+          "type": "string",
+          "description": "The requested fields. Choose from the Video Object's fields.",
+          "example": "Complete list: id,video_description,create_time, region_code,share_count,view_count,like_count,comment_count, music_id,hashtag_names, username,effect_ids,playlist_id,voice_to_text",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Condition fields",
+      "content": [
+        {
+          "field_name": "create_date",
+          "description": "The video creation date in UTC, presented in the format YYYYMMDD",
+          "example": "20220910"
+        },
+        {
+          "field_name": "username",
+          "description": "The username of the video creator",
+          "example": "\"cookie_love_122\""
+        },
+        {
+          "field_name": "region_code",
+          "description": "The abbreviated name of the country where the video was created",
+          "example": "'FR', 'TH', 'MM', 'BD', 'IT', 'NP', 'IQ', 'BR', 'US', 'KW', 'VN', 'AR', 'KZ', 'GB', 'UA', 'TR', 'ID', 'PK', 'NG', 'KH', 'PH', 'EG', 'QA', 'MY', 'ES', 'JO', 'MA', 'SA', 'TW', 'AF', 'EC', 'MX', 'BW', 'JP', 'LT', 'TN', 'RO', 'LY', 'IL', 'DZ', 'CG', 'GH', 'DE', 'BJ', 'SN', 'SK', 'BY', 'NL', 'LA', 'BE', 'DO', 'TZ', 'LK', 'NI', 'LB', 'IE', 'RS', 'HU', 'PT', 'GP', 'CM', 'HN', 'FI', 'GA', 'BN', 'SG', 'BO', 'GM', 'BG', 'SD', 'TT', 'OM', 'FO', 'MZ', 'ML', 'UG', 'RE', 'PY', 'GT', 'CI', 'SR', 'AO', 'AZ', 'LR', 'CD', 'HR', 'SV', 'MV', 'GY', 'BH', 'TG', 'SL', 'MK', 'KE', 'MT', 'MG', 'MR', 'PA', 'IS', 'LU', 'HT', 'TM', 'ZM', 'CR', 'NO', 'AL', 'ET', 'GW', 'AU', 'KR', 'UY', 'JM', 'DK', 'AE', 'MD', 'SE', 'MU', 'SO', 'CO', 'AT', 'GR', 'UZ', 'CL', 'GE', 'PL', 'CA', 'CZ', 'ZA', 'AI', 'VE', 'KG', 'PE', 'CH', 'LV', 'PR', 'NZ', 'TL', 'BT', 'MN', 'FJ', 'SZ', 'VU', 'BF', 'TJ', 'BA', 'AM', 'TD', 'SI', 'CY', 'MW', 'EE', 'XK', 'ME', 'KY', 'YE', 'LS', 'ZW', 'MC', 'GN', 'BS', 'PF', 'NA', 'VI', 'BB', 'BZ', 'CW', 'PS', 'FM', 'PG', 'BI', 'AD', 'TV', 'GL', 'KM', 'AW', 'TC', 'CV', 'MO', 'VC', 'NE', 'WS', 'MP', 'DJ', 'RW', 'AG', 'GI', 'GQ', 'AS', 'AX', 'TO', 'KN', 'LC', 'NC', 'LI', 'SS', 'IR', 'SY', 'IM', 'SC', 'VG', 'SB', 'DM', 'KI', 'UM', 'SX', 'GD', 'MH', 'BQ', 'YT', 'ST', 'CF', 'BM', 'SM', 'PW', 'GU', 'HK', 'IN', 'CK', 'AQ', 'WF', 'JE', 'MQ', 'CN', 'GF', 'MS', 'GG', 'TK', 'FK', 'PM', 'NU', 'MF', 'ER', 'NF', 'VA', 'IO', 'SH', 'BL', 'CU', 'NR', 'TP', 'BV', 'EH', 'PN', 'TF', 'RU'"
+        },
+        {
+          "field_name": "video_id",
+          "description": "The unique identifier of the video",
+          "example": "6978662169214864645"
+        },
+        {
+          "field_name": "hashtag_name",
+          "description": "The hashtag associated with the video",
+          "example": "\"arianagrande\", \"celebrity\""
+        },
+        {
+          "field_name": "keyword",
+          "description": "The keyword in the video description",
+          "example": "\"tiktok\""
+        },
+        {
+          "field_name": "music_id",
+          "description": "The music ID of the video.",
+          "example": "8978345345214861235"
+        },
+        {
+          "field_name": "effect_id",
+          "description": "The effect ID of the video.",
+          "example": "3957392342148643476"
+        },
+        {
+          "field_name": "video_length",
+          "description": "The duration of the video\nSHORT: <15s\nMID: 15 ~60s\nLONG: 1~5min\nEXTRA_LONG: >5min",
+          "example": "\"SHORT\", \"MID\", \"LONG\", \"EXTRA_LONG\""
+        }
+      ]
+    }
+  ]
+}

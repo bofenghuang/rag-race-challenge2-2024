@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/2019-09/schema",
+  "title": "Online platform API documentation v1.0",
+  "description": "Parsing schema for API documentation",
+  "type": "object",
+  "properties": {
+    "platform_name": {
+      "description": "Platform's name",
+      "type": "string"
+    },
+    "description": {
+      "description": "Endpoint's description",
+      "type": "string"
+    },
+    "endpoint_name": {
+      "description": "Platform's endpoint name",
+      "type": "string"
+    },
+    "endpoint_url": {
+      "description": "Platform's endpoint URL",
+      "type": "string"
+    },
+    "target_audience": {
+      "description": "Who can use the API? Public? Research?",
+      "type": "string"
+    },
+    "http_method": {
+      "description": "GET or POST (or other)",
+      "type": "string"
+    },
+    "quota": {
+      "description": "Are there any limitations to using this endpoint? (e.g. number of queries per minute,...)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "threshold": {
+            "type": "integer"
+          },
+          "object_unit": {
+            "type": "string"
+          },
+          "time_unit": {
+            "type": "string"
+          },
+          "additional_information": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "response_data": {
+      "$ref": "#/$defs/parameter_description"
+    },
+    "query_parameters": {
+      "$ref": "#/$defs/parameter_description"
+    },
+    "data_structures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/$defs/parameter_description"
+          }
+        }
+      }
+    },
+    "example_query": {
+      "description": "",
+      "type": "string"
+    },
+    "example_response": {
+      "description": "",
+      "type": "string"
+    },
+    "other_information": {
+      "description": "Other information that may be available on the web page.",
+      "type": "array",
+      "properties": {
+        "name": {
+          "description": "Name of the piece of information",
+          "type": "string"
+        },
+        "content": {
+          "description": "Piece of information",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "platform_name",
+    "endpoint_name",
+    "endpoint_url",
+    "http_method",
+    "target_audience",
+    "quota",
+    "response_data",
+    "example_query",
+    "example_response"
+  ],
+  "$defs": {
+    "parameter_description": {
+      "description": "",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Field name",
+            "type": "string"
+          },
+          "type": {
+            "description": "Field type",
+            "type": "string"
+          },
+          "description": {
+            "description": "Field description",
+            "type": "string"
+          },
+          "is_required": {
+            "description": "Is the parameter required (soes not always apply)?",
+            "type": "boolean"
+          },
+          "example": {
+            "description": "",
+            "type": "string"
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "additionalProperties": false
+}
