@@ -2,9 +2,9 @@
 # coding=utf-8
 # Copyright 2023  Bofeng Huang
 
-- chunking 
-- retrieval
-- reranker
+# - chunking 
+# - retrieval
+# - reranker
 
 import os
 
@@ -93,6 +93,28 @@ text_splitter = RecursiveCharacterTextSplitter(
     is_separator_regex=True,
 )
 text_splitter = LangchainNodeParser(text_splitter)
+
+# debug
+"""
+nodes = text_splitter.get_nodes_from_documents(documents)
+
+nodes_for_df = [{**doc.metadata, "text": doc.get_content("all")} for doc in nodes]
+df = pd.DataFrame(nodes_for_df)
+# df["length"] = df["text"].map(
+#     lambda x: len(tokenizer(x, add_special_tokens=False)["input_ids"])
+# )
+df["id"] = 1
+df["id"] = df.groupby("file_path")["id"].cumsum()
+def _get_new_file_path(x):
+    s = x["file_path"].replace("platform-docs-versions", "platform-docs-versions-new")
+    s_a, s_b = s.rsplit(".", 1)
+    return f"{s_a}_{x['id']}.{s_b}"
+df["new_file_path"] = df.apply(_get_new_file_path, axis=1)
+for row in df.to_dict("records"):
+    os.makedirs(os.path.dirname(row["new_file_path"]), exist_ok=True)
+    with open(row["new_file_path"], "w") as f:
+        f.write(row["text"])
+"""
 
 # This will wrap the default prompts that are internal to llama-index
 # query_wrapper_prompt = PromptTemplate(
