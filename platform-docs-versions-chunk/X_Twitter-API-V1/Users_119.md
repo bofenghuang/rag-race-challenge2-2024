@@ -1,0 +1,26 @@
+platform: X
+topic: Twitter-API-V1
+subtopic: Users
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/X_Twitter-API-V1/Users.md
+url: https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/overview
+
+Overview
+
+**Please note**  
+
+We've released the following endpoints within the [Twitter API v2](https://developer.twitter.com/en/docs/twitter-api/getting-started/about-twitter-api). 
+
+|     |     |     |
+| --- | --- | --- |
+| **v1.1 endpoints** | **Corresponding v2 endpoints** |     |
+| [GET lists/show](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-show) | [Lists lookup](https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup) | [Migration guide](https://developer.twitter.com/en/docs/twitter-api/lists/list-lookup/migrate) |
+| [POST lists/create](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-create)   <br>[POST lists/destroy](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-destroy)   <br>[POST lists/update](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-update) | [Manage Lists](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/introduction) | [Migration guide](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/lists/manage-lists/migrate/manage-lists--standard-v1-1-compared-to-twitter-api-v2) |
+| [GET lists/statuses](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-statuses) | [List Tweet lookup](https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/introduction) | [Migration guide](https://developer.twitter.com/en/docs/twitter-api/lists/list-tweets/migrate) |
+| [](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-create)[GET lists/members](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-members)  <br>[GET lists/memberships](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-memberships)  <br>[POST lists/members/create](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-create)   <br>[POST lists/members/destroy](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-members-destroy) | [List members](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/introduction) | [Migration guide](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/lists/manage-lists/migrate/manage-list-members--standard-v1-1-compared-to-twitter-api-v2) |
+| [](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-subscribers-create)[GET lists/subscribers](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscribers)  <br>[GET lists/subscriptions](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-subscriptions)  <br>[GET lists/lists](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/get-lists-list)  <br>[POST lists/subscribers/create](https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-subscribers-create)   <br>[POST lists/subscribers/destroy](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/v1/accounts-and-users/create-manage-lists/api-reference/post-lists-subscribers-destroy) | [List follows](https://developer.twitter.com/en/docs/twitter-api/lists/manage-lists/introduction) | [Migration guide](https://developer.twitter.com/content/developer-twitter/en/docs/twitter-api/lists/manage-lists/migrate/manage-followed-lists--standard-v1-1-compared-to-twitter-api-v2) |
+
+Please use the migration guides to see what has changed between the standard v1.1 and v2 versions.
+
+A list is a curated group of Twitter accounts. You can create your own lists or subscribe to lists created by others for the authenticated user. Viewing a list timeline will show you a stream of Tweets from only the accounts on that list.
+
+For general information on lists, see [Using Twitter lists](https://support.twitter.com/articles/76460) in the help center.

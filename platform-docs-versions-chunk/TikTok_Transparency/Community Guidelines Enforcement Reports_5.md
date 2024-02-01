@@ -1,0 +1,20 @@
+platform: TikTok
+topic: Transparency
+subtopic: Community Guidelines Enforcement Reports
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/TikTok_Transparency/Community Guidelines Enforcement Reports.md
+url: https://www.tiktok.com/transparency/fr-fr/community-guidelines-enforcement-2023-3/
+
+
+## **Sûreté**
+
+La protection de notre communauté reste notre priorité. Nous nous engageons à investir dans des mécanismes solides qui donnent la priorité à la sécurité des utilisateurs, à la protection des données et au respect de la réglementation. La transparence sur ces efforts de sauvegarde de la plateforme est un élément essentiel de la pérennité de cet engagement. Nos séries [TikTok Facts](https://newsroom.tiktok.com/en-us/tiktok-truths-a-new-series-on-our-privacy-and-data-security-practices) ont pour but de clarifier nos pratiques en matière de protection de la vie privée et de sécurité des données. Nous avons récemment [approfondi](https://newsroom.tiktok.com/en-us/tiktok-facts-how-we-secure-personal-information-and-store-data) notre approche du stockage des données et la manière dont nous sécurisons les informations personnelles de notre communauté, et nous continuerons à partager des ressources avec notre communauté pour refléter les informations importantes sur la sécurité et la confidentialité chez TikTok.
+
+Il s’agit notamment de mises à jour sur des initiatives clés dans différentes régions du monde. Bien que TikTok soit une plateforme mondiale, nous adoptons une approche locale de la conformité réglementaire en collaborant avec les parties prenantes afin de mieux comprendre les préoccupations locales et respecter nos obligations légales. Nous continuons à progresser sur le [projet Clover](https://newsroom.tiktok.com/en-eu/setting-a-new-standard-in-european-data-security-with-project-clover), une initiative annoncée début 2023 pour créer un environnement de protection spécialement conçu pour les données des utilisateurs européens de TikTok. Nous avons commencé à migrer les données des utilisateurs européens vers notre premier centre de données à Dublin, en Irlande, et d’autres centres de données en Irlande et en Norvège sont en cours de construction. Nous sommes également heureux d’annoncer notre collaboration avec des leaders du secteur pour tester nos défenses et protéger notre plateforme. Nous avons récemment annoncé un partenariat avec NCC Group, la société de sécurité européenne tierce qui effectuera un audit indépendant des contrôles et protections des données du projet Clover, surveillera les flux de données, fournira une vérification indépendante et signalera tout incident.
+
+Conformément à notre engagement en matière de sécurité, nous avons célébré le troisième anniversaire de notre programme mondial de primes à la détection de “bugs” avec HackerOne. Ce programme encourage les chercheurs en sécurité à signaler de manière proactive les failles de sécurité afin que nous puissions les corriger. Au troisième trimestre 2023, notre [programme HackerOne](https://hackerone.com/tiktok?type=team) a trié et résolu 59 rapports, représentant plus de 112 000$ de récompenses.
+
+Comme toujours, nous restons vigilants dans nos efforts pour détecter les menaces extérieures et protéger la plateforme contre la présence de comptes et d’engagements inauthentiques ou faux. Ces menaces attaquent nos systèmes et les mettent à l’épreuve de manière continue, ce qui peut entraîner des fluctuations ponctuelles dans les indicateurs rapportés dans ces domaines. Néanmoins, nous restons déterminés à identifier et à supprimer rapidement tout compte, contenu ou activité visant à accroître artificiellement la popularité sur notre plateforme. Dans ce contexte de menaces en constante évolution, TikTok s’engage à préserver l’intégrité de sa communauté et à renforcer notre réponse aux différents acteurs.
+
+#### **Spam et faux engagement**
+
+* * *

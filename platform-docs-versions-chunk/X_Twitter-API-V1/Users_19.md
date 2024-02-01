@@ -1,0 +1,48 @@
+platform: X
+topic: Twitter-API-V1
+subtopic: Users
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/X_Twitter-API-V1/Users.md
+url: https://developer.twitter.com/en/docs/twitter-api/v1/accounts-and-users/manage-account-settings/api-reference/post-account-update_profile
+
+
+## Example Response[¶](#example-response "Permalink to this headline")
+
+    {
+        "contributors_enabled": false,
+        "created_at": "Thu Aug 23 19:45:07 +0000 2012",
+        "default_profile": false,
+        "default_profile_image": false,
+        "description": "Keep calm and rock on.",
+        "favourites_count": 0,
+        "follow_request_sent": false,
+        "followers_count": 0,
+        "following": false,
+        "friends_count": 10,
+        "geo_enabled": true,
+        "id": 776627022,
+        "id_str": "776627022",
+        "is_translator": false,
+        "lang": "en",
+        "listed_count": 0,
+        "location": "San Francisco, CA",
+        "name": "Sean Cook",
+        "notifications": false,
+        "profile_background_color": "9AE4E8",
+        "profile_background_image_url": "http://a0.twimg.com/images/themes/theme16/bg.gif",
+        "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme16/bg.gif",
+        "profile_background_tile": false,
+        "profile_image_url": "http://a0.twimg.com/profile_images/2550256790/hv5rtkvistn50nvcuydl_normal.jpeg",
+        "profile_image_url_https": "https://si0.twimg.com/profile_images/2550256790/hv5rtkvistn50nvcuydl_normal.jpeg",
+        "profile_sidebar_border_color": "BDDCAD",
+        "profile_sidebar_fill_color": "DDFFCC",
+        "profile_text_color": "333333",
+        "profile_use_background_image": true,
+        "protected": false,
+        "screen_name": "s0c1alm3dia",
+        "show_all_inline_media": false,
+        "statuses_count": 0,
+        "time_zone": "Pacific Time (US & Canada)",
+        "url": "http://cnn.com",
+        "utc_offset": -28800,
+        "verified": false
+    }

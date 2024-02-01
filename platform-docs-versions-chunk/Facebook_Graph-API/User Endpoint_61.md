@@ -1,0 +1,13 @@
+platform: Facebook
+topic: Graph-API
+subtopic: User Endpoint
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/Facebook_Graph-API/User Endpoint.md
+url: https://developers.facebook.com/docs/graph-api/reference/user/business_users/
+
+# User Business Users
+
+Represents a collection of Business Manager accounts associated with a User.
+
+## Reading
+
+Get a list of Business Manager accounts associated with the User.

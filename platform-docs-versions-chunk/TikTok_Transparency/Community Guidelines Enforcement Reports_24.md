@@ -1,0 +1,18 @@
+platform: TikTok
+topic: Transparency
+subtopic: Community Guidelines Enforcement Reports
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/TikTok_Transparency/Community Guidelines Enforcement Reports.md
+url: https://www.tiktok.com/transparency/fr-fr/community-guidelines-enforcement-2022-4/
+
+
+### Sécurité
+
+Nous nous efforçons de créer une expérience sûre, positive et divertissante pour notre communauté. Nous continuons à innover dans notre approche de la protection des personnes, notamment en supprimant des contenus, en rendant certains contenus [inéligibles à la recommandation dans les fils « Pour toi »](https://www.tiktok.com/community-guidelines?lang=en#44), en introduisant de [nouveaux outils de filtrage de contenu](https://newsroom.tiktok.com/fr-fr/de-nouvelles-opportunites-de-divertir-la-communaute) et une [mise à jour de notre politique de modération](https://newsroom.tiktok.com/fr-fr/soutenir-les-createurs-avec-une-mise-a-jour-de-notre-politique-de-moderation) afin de garantir que le fil « Pour toi » de chaque utilisateur soit alimenté en contenus appropriés et divertissants pour lui.En outre, TikTok attache une importance toute particulière aux réglementations en matière de sécurité et de conformité. C’est pourquoi nous allouons des ressources importantes pour appliquer les différentes législations, telles que la législation européenne sur les services numériques (Digital Services Act, DSA). La transparence est au cœur du DSA et fait appel à la responsabilité, ce qui est en totale adéquation avec l’éthique de TikTok.
+
+Pour nous aider à atteindre cet objectif à grande échelle, nous investissons dans des [technologies](https://newsroom.tiktok.com/en-us/advancing-our-approach-to-user-safety) qui nous permettent de détecter et de supprimer automatiquement les contenus violents, ce qui contribue à réduire le volume de contenus examinés par les modérateurs, ce qui permet à un plus grand nombre d’entre eux, de se concentrer sur des domaines plus complexes et contextuels, tels que la désinformation, les discours haineux et le harcèlement. En ce qui concerne le contrôle du respect de la législation, notre approche vise à :
+
+* Réduire au minimum l’affichage de contenus qui enfreignent nos Règles communautaires;
+* Donner la priorité au retrait rapide des contenus particulièrement choquants, tels que les contenus pédopornographiques et l’extrémisme violent;
+* Veiller à la cohérence et à l’équité dans l’application de la législation afin de réduire le nombre de suppressions injustifiées.
+
+Pour mieux concrétiser cette vision, nous avons continué l’année passée à investir dans le machine learning automatique et dans une mise à niveau de l’architecture qui prend en compte les contenus vidéo, textuels et audio, ainsi que la gravité éventuelle de l’infraction et la portée potentielle de la vidéo (par exemple, en fonction du nombre de personnes qui la suivent) afin de déterminer la meilleure ligne de conduite à adopter. Par exemple, le contenu peut être supprimé automatiquement, rendu inéligible pour une recommandation dans les flux « Pour toi » ou dirigé vers un modérateur pour un examen plus approfondi. Nous avons également mis en place un nouveau système de contrôle plus transparent pour les créateurs. Nous pensons que ces améliorations nous permettent d’offrir une meilleure expérience aux créateurs tout en continuant à faire progresser notre engagement au service de la sécurité sur l’ensemble de la plateforme. Dans l’ensemble, ces efforts ont permis d’améliorer la précision et l’efficacité de notre surveillance, comme le reflètent les données de ce rapport.

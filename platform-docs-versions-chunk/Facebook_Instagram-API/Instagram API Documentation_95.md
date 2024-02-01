@@ -1,0 +1,17 @@
+platform: Facebook
+topic: Instagram-API
+subtopic: Instagram API Documentation
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/Facebook_Instagram-API/Instagram API Documentation.md
+url: https://developers.facebook.com/docs/instagram-api/guides/webhooks
+
+
+### Instagram Fields
+
+| Field | Description | Permissions Required |
+| --- | --- | --- |
+| [`comments`](https://developers.facebook.com/docs/graph-api/webhooks/reference/instagram/#comments) | Comments on an [IG Media](https://developers.facebook.com/docs/instagram-api/reference/ig-media/) owned by your app's Instagram user.<br><br>The `ad_id` and `ad_title` will be returned in the media object when a person comments on a boosted Instagram post or Instagram ads post. This may result in duplicate webhook notifications. | * [instagram\_manage\_comments](https://developers.facebook.com/docs/permissions/reference/instagram_manage_comments)<br>* [pages\_manage\_metadata](https://developers.facebook.com/docs/permissions/reference/pages_manage_metadata)<br>* [pages\_read\_engagement](https://developers.facebook.com/docs/permissions/reference/pages_read_engagement) **or**  <br>    [pages\_show\_list](https://developers.facebook.com/docs/permissions/reference/pages_show_list) |
+| [`live_comments`](https://developers.facebook.com/docs/graph-api/webhooks/reference/instagram/#live_comments) | Comments on a live [IG Media](https://developers.facebook.com/docs/instagram-api/reference/ig-media/) owned by your app's Instagram user. | * [instagram\_manage\_comments](https://developers.facebook.com/docs/permissions/reference/instagram_manage_comments)<br>* [pages\_manage\_metadata](https://developers.facebook.com/docs/permissions/reference/pages_manage_metadata)<br>    <br>* [pages\_read\_engagement](https://developers.facebook.com/docs/permissions/reference/pages_read_engagement) **or**  <br>    [pages\_show\_list](https://developers.facebook.com/docs/permissions/reference/pages_show_list) |
+| [`mentions`](https://developers.facebook.com/docs/graph-api/webhooks/reference/instagram/#mentions) | @mentions for your app's Instagram user in a comment. | * [instagram\_manage\_comments](https://developers.facebook.com/docs/permissions/reference/instagram_manage_comments)<br>* [pages\_manage\_metadata](https://developers.facebook.com/docs/permissions/reference/pages_manage_metadata)<br>    <br>* [pages\_read\_engagement](https://developers.facebook.com/docs/permissions/reference/pages_read_engagement) **or**  <br>    [pages\_show\_list](https://developers.facebook.com/docs/permissions/reference/pages_show_list) |
+| [`story_insights`](https://developers.facebook.com/docs/graph-api/webhooks/reference/instagram/#story_insights) | Metrics describing interactions on a story. Sent 1 hour after the story expires. | * [instagram\_manage\_insights](https://developers.facebook.com/docs/permissions/reference/instagram_manage_insights)<br>* [pages\_manage\_metadata](https://developers.facebook.com/docs/permissions/reference/pages_manage_metadata)<br>    <br>* [pages\_read\_engagement](https://developers.facebook.com/docs/permissions/reference/pages_read_engagement) **or**  <br>    [pages\_show\_list](https://developers.facebook.com/docs/permissions/reference/pages_show_list) |
+
+[](#)

@@ -1,0 +1,46 @@
+platform: Facebook
+topic: Graph-API
+subtopic: Video Endpoint
+file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/Facebook_Graph-API/Video Endpoint.md
+url: https://developers.facebook.com/docs/graph-api/reference/video/tags/
+
+### Parameters
+
+This endpoint doesn't have any parameters.
+
+### Fields
+
+Reading from this edge will return a JSON formatted result:
+
+{
+    "`data`": \[\],
+    "`paging`": {}
+}
+
+#### `data`
+
+A list of [TaggableSubject](https://developers.facebook.com/docs/graph-api/reference/taggable-subject/) nodes.
+
+The following fields will be added to each node that is returned:
+
+| Field | Description |
+| --- | --- |
+| `created_time`<br><br>datetime | The time the tag was created<br><br>[Default](https://developers.facebook.com/docs/graph-api/using-graph-api/#fields) |
+
+#### `paging`
+
+For more details about pagination, see the [Graph API guide](https://developers.facebook.com/docs/graph-api/using-graph-api/#paging).
+
+### Error Codes
+
+| Error | Description |
+| --- | --- |
+| 100 | Invalid parameter |
+
+## Creating
+
+You can't perform this operation on this endpoint.
+
+## Updating
+
+You can't perform this operation on this endpoint.
