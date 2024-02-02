@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import os
-
-os.environ["HF_HOME"] = "/projects/bhuang/.cache/huggingface"
-# os.environ["OMP_NUM_THREADS"] = "1"
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["BITSANDBYTES_NOWELCOME"] = "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "0,2,3,4,5"
-# os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
-
 import pandas as pd
 import logging
 import sys

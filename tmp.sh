@@ -7,6 +7,8 @@ pip install -U -qqq transformers accelerate datasets autoawq fire
 
 pip install rank-bm25 nltk rake_nltk
 
+pip install -U FlagEmbedding
+
 # download lib data
 python -c 'import nltk; nltk.download("stopwords")'
 
