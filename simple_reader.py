@@ -4,13 +4,10 @@
 import os
 import re
 import uuid
-from functools import reduce
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-# from llama_index.schema import Document
 from pydantic import BaseModel, Field
-from tqdm import tqdm
 
 MAX_TOKENS = 512  # should be replaced
 
@@ -39,24 +36,18 @@ class Document(BaseModel):
         description="Metadata keys that are excluded from text for the LLM.",
     )
 
-    dense_embedding: Optional[Any] = Field(
-        default=None
-    )
-    sparse_embedding: Optional[Any] = Field(
-        default=None
-    )
-    colbert_embedding: Optional[Any] = Field(
-        default=None
-    )
+    dense_embedding: Optional[Any] = Field(default=None)
+    sparse_embedding: Optional[Any] = Field(default=None)
+    colbert_embedding: Optional[Any] = Field(default=None)
 
-    def __setstate__(self, state: Dict[str, Any]) -> None:
-        # Use the __dict__ and __init__ method to set state
-        # so that all variable initialize
-        try:
-            self.__init__(**state["__dict__"])  # type: ignore
-        except Exception:
-            # Fall back to the default __setstate__ method
-            super().__setstate__(state)
+    def get_metadata_str(self):
+        return "\n".join([f"{k}: {v}" for k, v in self.metadata.items()])
+
+    @property
+    def text_with_metadata(self):
+        """Get object content."""
+        metadata_str = self.get_metadata_str()
+        return f"{metadata_str}\n\n{self.text}"
 
 
 def get_file_metadata(file_path: str):
@@ -101,7 +92,6 @@ def split_long_chunks(doc):
 class SimplerReader:
     def __init__(self, path):
         self.path = path
-        self.parents_dic = {}
 
     def load_files(self):
         files = [
@@ -130,6 +120,7 @@ class SimplerReader:
         documents_smaller_chunks = []  # 2 diese
         documents_smaller_smaller_chunks = []  # 3 diese
         smallest_chunks = []  # split
+        parent_relationships = {}
 
         for document in documents:
             text = document.text
@@ -141,7 +132,7 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
-                    self.parents_dic[doc.id_] = document
+                    parent_relationships[doc.id_] = document.id_
                     documents_chunks.append(doc)
 
         for document in documents_chunks:
@@ -153,7 +144,7 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
-                    self.parents_dic[doc.id_] = document
+                    parent_relationships[doc.id_] = document.id_
                     documents_smaller_chunks.append(doc)
 
         for document in documents_smaller_chunks:
@@ -165,19 +156,20 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
-                    self.parents_dic[doc.id_] = document
+                    parent_relationships[doc.id_] = document.id_
                     documents_smaller_smaller_chunks.append(doc)
 
         for el in documents_smaller_smaller_chunks:
             if len(el.text.split()) > MAX_TOKENS:
                 new_splits = split_long_chunks(el)
                 for split in new_splits:
-                    self.parents_dic[split.id_] = el
+                    parent_relationships[split.id_] = el.id_
                 smallest_chunks += new_splits
             else:
-                self.parents_dic[doc.id_] = el
-                el.metadata['parent'] = el.id_
-                smallest_chunks.append(el)
+                doc = Document(text=el.text, metadata=el.metadata)
+                parent_relationships[doc.id_] = el.id_
+                doc.metadata["parent"] = el.id_
+                smallest_chunks.append(doc)
         # platforms = set([el.metadata["platform"] for el in documents])
 
         # documents_per_platforms = {platform: [] for platform in platforms}
@@ -186,10 +178,19 @@ class SimplerReader:
         #     documents_per_platforms[document.metadata["platform"]].append(document)
 
         # return documents_per_platforms
+
         return (
-            documents,
-            documents_chunks,
-            documents_smaller_chunks,
-            documents_smaller_smaller_chunks,
             smallest_chunks,
-        )
+            documents_smaller_smaller_chunks,
+            documents_smaller_chunks,
+            documents_chunks,
+            documents,
+        ), parent_relationships
+        # return (
+        #     documents,
+        #     documents_chunks,
+        #     documents_smaller_chunks,
+        #     documents_smaller_smaller_chunks,
+        #     smallest_chunks,
+        #     parent_relationships,
+        # )

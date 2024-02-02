@@ -21,6 +21,10 @@ class HuggingFaceLLM:
         query_wrapper_prompt: str = "{query}",
     ):
 
+        model_kwargs = model_kwargs or {}
+        tokenizer_kwargs = tokenizer_kwargs or {}
+        generate_kwargs = generate_kwargs or {}
+
         try:
             from transformers import (
                 AutoModelForCausalLM,
@@ -30,7 +34,7 @@ class HuggingFaceLLM:
             )
         except ImportError as exc:
             raise ImportError(
-                f"{type(self).__name__} requires torch and transformers packages.\n"
+                f"{type(self).__class__} requires torch and transformers packages.\n"
                 "Please install both with `pip install transformers[torch]`."
             ) from exc
 

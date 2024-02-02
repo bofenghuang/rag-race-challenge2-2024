@@ -56,7 +56,10 @@ class BM25CategoryRetriever:
         selected_categories = [doc_score_[0] for doc_score_ in doc_scores]
         logging.info(f"Selected the following categories: {selected_categories}")
 
-        return [doc for doc in documents if doc.metadata["platform"] in selected_categories], selected_categories
+        retrieved_documents = [doc for doc in documents if doc.metadata["platform"] in selected_categories]
+        logging.info(f"{self.__class__} retrieved {len(retrieved_documents)} documents from {len(documents)}")
+
+        return retrieved_documents, selected_categories
 
 
 class ModerateBM25CategoryRetriever(BM25CategoryRetriever):
@@ -100,7 +103,6 @@ class NotHardRetriever(BaseRetriever):
 
     def _retrieve(self, query, **kwargs):
 
-        # 1best
         document_id, _ = self.document_retriever(query.query_str)[0]
         document = self._documents[document_id]
         logging.info(f"Selected document {document}")

@@ -1,5 +1,6 @@
 # coding=utf-8
 
+import logging
 from functools import partial
 from typing import Any, Dict, List
 
@@ -239,7 +240,8 @@ class BGEM3EmbedDocumentRetriever:
         return self.model.embed_single(query, max_length=self._max_query_length)
 
     def embed_documents(self, documents: List[Dict], **kwargs):
-        sentences = [doc.text for doc in documents]
+        # embed with augmented text (metadata, summary, etc)
+        sentences = [doc.text_with_metadata for doc in documents]
         embeddings = self.model.embed_multi(
             sentences, batch_size=self._batch_size, max_length=self._max_document_length, **kwargs
         )
@@ -270,7 +272,9 @@ class BGEM3EmbedDocumentRetriever:
         sorted_result_tups = sorted_result_tups[: self._top_k]
         result_ids, result_similarities = list(zip(*sorted_result_tups))
 
-        documents = [documents[idx] for idx in result_ids]
+        retrieved_documents = [documents[idx] for idx in result_ids]
         # remove embedding
-        # documents = [{k: v for k, v in doc if k not in embed_names} for doc in documents]
-        return documents
+        # retrieved_documents = [{k: v for k, v in doc if k not in embed_names} for doc in retrieved_documents]
+        logging.info(f"{self.__class__} retrieved {len(retrieved_documents)} documents from {len(documents)}")
+
+        return retrieved_documents
