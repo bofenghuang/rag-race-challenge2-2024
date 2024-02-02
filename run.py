@@ -101,8 +101,8 @@ def main(
         device_map="sequential",
         # uncomment this if using CUDA to reduce memory usage
         model_kwargs={
-            # "torch_dtype": torch.float16,
-            # "max_memory": {0: "40GiB", 1: "40GiB", 2: "40GiB"},
+            "torch_dtype": torch.float16,
+            "max_memory": {0: "60GiB", 1: "40GiB"},
             # "use_flash_attention_2": True,
             "low_cpu_mem_usage": True,
         },
