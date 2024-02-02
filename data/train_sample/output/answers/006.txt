@@ -1,0 +1,28 @@
+You can easily monitor the average duration between a tweet creation and its deletion using Twitter API v2 compliance. Two steps are involved:
+
+**Step 1** : Get the tweets IDS
+
+A tweet id can be easily inferred from the URL which is of the form `https://twitter.com/XXX/status/[TWEET_ID]`. You will have to gather the list of ids corresponding to the hateful tweets that you have and store them in a text file.
+
+**Step 2** : Get the tweets compliance status 
+
+Then you can use Twitter v2 batch compliance API which allows you to retrieve the compliance status of a set of tweets. You would be interested in the status `deleted`.
+By periodically querying this API, you can compute the percentage of tweets that were deleted and how long it took for those tweets to be deleted.
+
+There are 4 steps involved in working with this endpoint (https://api.twitter.com/2/compliance/jobs):
+
+1. **Create a compliance job**
+You can specify the job type (here `tweets`). You can have one concurrent job per job type at any time.
+
+2. **Upload your dataset to the `upload_url`**
+Next, you upload your dataset as a plain text file to the provided upload_url, with each line of the file containing a single Tweet ID. The upload_url expires after 15 minutes.
+
+3. **(Optional) Check the job status**
+You can check the status of your compliance job to see whether it is created, in_progress, failed or complete.
+
+4. **Download the results**
+When your job is complete, you can download the results using the download_url. The download_url expires after one week (from when the job was created).
+
+This result will contain a set of JSON objects (one object per line). Each object will contain a Tweet ID, the Tweet’s creation date (useful to locate Tweets organized by date), required action, the reason for the compliance action, and the date the user was suspended.
+
+You can find the API documentation here: https://developer.twitter.com/en/docs/twitter-api/compliance/batch-compliance/introduction. You can also check out code samples here: https://github.com/twitterdev/Twitter-API-v2-sample-code/tree/main/Batch-Compliance/python. 

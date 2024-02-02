@@ -1,0 +1,15 @@
+In order to get the number of likes of a TikTok post, you can use a curl query with the video id:
+
+```bash
+curl -L -X POST 'https://open.tiktokapis.com/v2/research/video/query/?fields=id,like_count' -H 'Authorization: Bearer clt.example12345Example12345Example' -H 'Content-Type: application/json' --data-raw '{"query": {"and": [{"operation": "EQ", "field_name": "video_id", "field_values": <VIDEO_ID>}]}}'
+```
+
+Please note you should replace `<VIDEO_ID>` in the previous query.
+`curl` is a common tool to communicate with URLs. The provided request uses HTTP. The parameters used are:
+- `-L` allows `curl` to find the resource at a different location in case of a 3XX response code;
+- `-X POST` changes the HTTP request from a GET to a POST;
+- the URL indicates we are looking for videos and contains the fields we are looking for - here, the fields are the video id and the likes count;
+- `-H` adds headers to the HTTP request;
+- you need to add your authorization token with the `Authorization` header;
+- we specify we are sending a json in the request with the `Content-Type` header;
+- the `--data_raw` parameter allows curl to send raw data to the specified URL : in this instance, the data specifies our query to the TikTok API, with your specified video id.

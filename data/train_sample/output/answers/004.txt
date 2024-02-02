@@ -1,0 +1,11 @@
+There are 9 european languages mentioned in Pinterest's DSA transparency report:
+- Danish;
+- English;
+- French;
+- German;
+- Italian;
+- Latvian;
+- Portuguese;
+- Spanish;
+- Swedish.
+The transparency report can be found at the following address: https://policy.pinterest.com/en/digital-services-act-transparency-report.

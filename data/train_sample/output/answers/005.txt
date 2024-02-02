@@ -1,0 +1,3 @@
+```bash
+curl -L https://api.crowdtangle.com/post/123456789_123456789?token=<CROWDTANGLE_API_TOKEN>
+```
