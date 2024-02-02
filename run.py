@@ -84,7 +84,7 @@ def main(
         reranker_model_name_or_path,
         model_kwargs={
             "torch_dtype": torch.float16,
-            "use_flash_attention_2": True,
+            # "use_flash_attention_2": True,
             "low_cpu_mem_usage": True,
         },
         device=1,
