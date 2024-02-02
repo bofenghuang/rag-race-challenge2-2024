@@ -15,7 +15,7 @@ import pandas as pd
 import logging
 import sys
 import torch
-import fire
+# import fire
 from tqdm import tqdm
 
 from category_retriever import ModerateBM25CategoryRetriever
@@ -184,7 +184,28 @@ def main(
 
 
 if __name__ == "__main__":
-    fire.Fire(main)
+
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Description of your program')
+    parser.add_argument('--input-csv-file', help='Description for foo argument', required=True)
+    parser.add_argument('--input-document-dir', help='Description for bar argument', required=True)
+    parser.add_argument('--output-dir', help='Description for bar argument', required=True)
+    parser.add_argument('--embed-model-name-or-path', help='Description for bar argument', required=True)
+    parser.add_argument('--reranker-model-name-or-path', help='Description for bar argument', required=True)
+    parser.add_argument('--llm-model-name-or-path', help='Description for bar argument', required=True)
+    args = parser.parse_args()
+
+    main(
+        input_csv_file=args.input_csv_file,
+        input_document_dir=args.input_document_dir,
+        output_dir=args.output_dir,
+        embed_model_name_or_path=args.embed_model_name_or_path,
+        reranker_model_name_or_path=args.reranker_model_name_or_path,
+        llm_model_name_or_path=args.llm_model_name_or_path,
+    )
+
+    # fire.Fire(main)
     # main(
     #     input_csv_file="/home/bhuang/nlp/rag-race-challenge2-2024/challenge-2-dataset-and-documentation/dataset/train/input/questions.csv",
     #     # input_document_dir="/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions-sample",

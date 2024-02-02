@@ -34,10 +34,18 @@ input_csv_file="./challenge-2-dataset-and-documentation/dataset/train/input/ques
 input_document_dir="./platform-docs-versions"
 output_dir="./outputs"
 
+# python run.py \
+#     --input_csv_file $input_csv_file \
+#     --input_document_dir $input_document_dir \
+#     --output_dir $output_dir \
+#     --embed_model_name_or_path $embed_model_name_or_path \
+#     --reranker_model_name_or_path $reranker_model_name_or_path \
+#     --llm_model_name_or_path $llm_model_name_or_path
+
 python run.py \
-    --input_csv_file $input_csv_file \
-    --input_document_dir $input_document_dir \
-    --output_dir $output_dir \
-    --embed_model_name_or_path $embed_model_name_or_path \
-    --reranker_model_name_or_path $reranker_model_name_or_path \
-    --llm_model_name_or_path $llm_model_name_or_path
+    --input-csv-file $input_csv_file \
+    --input-document-dir $input_document_dir \
+    --output-dir $output_dir \
+    --embed-model-name-or-path $embed_model_name_or_path \
+    --reranker-model-name-or-path $reranker_model_name_or_path \
+    --llm-model-name-or-path $llm_model_name_or_path
