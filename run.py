@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import pandas as pd
 import logging
+import os
 import sys
+
+import pandas as pd
 import torch
+
 # import fire
 from tqdm import tqdm
 
 from category_retriever import ModerateBM25CategoryRetriever
-from embed_retriever import BGEM3EmbedModel, BGEM3EmbedDocumentRetriever
-from simple_reader import SimplerReader
+from embed_retriever import BGEM3EmbedDocumentRetriever, BGEM3EmbedModel
 from hf_llm import HuggingFaceLLM
 from reranker import Reranker
+from simple_reader import SimplerReader
 
 DEFAULT_TEXT_QA_PROMPT_TMPL = (
     "Context information is below.\n"

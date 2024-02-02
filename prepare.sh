@@ -34,6 +34,9 @@ export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 # git clone https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ $ALL_CCFRWORK/Mixtral-8x7B-Instruct-v0.1-AWQ
 
 # python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model=mistralai/Mixtral-8x7B-Instruct-v0.1")'
-python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
-python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")'
-python -c 'from sentence_transformers import SentenceTransformer; model = SentenceTransformer("BAAI/bge-m3"))'
+# python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
+
+# python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")'
+
+# python -c 'from sentence_transformers import SentenceTransformer; model = SentenceTransformer("BAAI/bge-m3"))'
+python -c 'from huggingface_hub import snapshot_download; snapshot_download(repo_id="BAAI/bge-m3", ignore_patterns=['flax_model.msgpack', 'rust_model.ot', 'tf_model.h5'])'
