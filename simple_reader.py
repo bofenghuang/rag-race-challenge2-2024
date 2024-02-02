@@ -101,6 +101,7 @@ def split_long_chunks(doc):
 class SimplerReader:
     def __init__(self, path):
         self.path = path
+        self.parents_dic = {}
 
     def load_files(self):
         files = [
@@ -140,6 +141,7 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
+                    self.parents_dic[doc.id_] = document
                     documents_chunks.append(doc)
 
         for document in documents_chunks:
@@ -151,6 +153,7 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
+                    self.parents_dic[doc.id_] = document
                     documents_smaller_chunks.append(doc)
 
         for document in documents_smaller_chunks:
@@ -162,12 +165,18 @@ class SimplerReader:
                     metadata = document.metadata
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
+                    self.parents_dic[doc.id_] = document
                     documents_smaller_smaller_chunks.append(doc)
 
         for el in documents_smaller_smaller_chunks:
             if len(el.text.split()) > MAX_TOKENS:
-                smallest_chunks += split_long_chunks(el)
+                new_splits = split_long_chunks(el)
+                for split in new_splits:
+                    self.parents_dic[split.id_] = el
+                smallest_chunks += new_splits
             else:
+                self.parents_dic[doc.id_] = el
+                el.metadata['parent'] = el.id_
                 smallest_chunks.append(el)
         # platforms = set([el.metadata["platform"] for el in documents])
 
