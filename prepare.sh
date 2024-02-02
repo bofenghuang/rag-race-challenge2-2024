@@ -1,5 +1,18 @@
 #!/bin/bash
 
+#SBATCH --job-name=rag-pipeline
+#SBATCH --output=logs/%x/%j.out # output file (%j = job ID)
+#SBATCH --error=logs/%x/%j.err # error file (%j = job ID)
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1          # crucial - only 1 task per dist per node!
+#SBATCH --cpus-per-task=64         # number of cores per tasks
+#SBATCH --gres=gpu:2 # reserve 8 GPUs per node
+#SBATCH --time 2:00:00              # maximum execution time (HH:MM:SS)
+#SBATCH --qos=qos_gpu-t3             # QoS
+#SBATCH --hint=nomultithread         # we get physical cores not logical
+#SBATCH --constraint=a100
+#SBATCH --account=eqm@a100            # A100 accounting
+
 # download models / datasets to HF cache
 
 set -x -e

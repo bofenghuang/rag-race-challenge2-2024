@@ -71,12 +71,12 @@ def main(
 
     # 2.2.1 load embedding model (dense vector + sparse vector + colbert vector)
     # Setting use_fp16 to True speeds up computation with a slight performance degradation
-    embed_model = BGEM3EmbedModel(embed_model_name_or_path, use_fp16=True, device=3)
+    embed_model = BGEM3EmbedModel(embed_model_name_or_path, use_fp16=True, device=1)
     # 2.2.2 load embedding retriever
     embed_document_retriever = BGEM3EmbedDocumentRetriever(
         embed_model,
-        batch_size=4,
-        # batch_size=12,
+        # batch_size=4,
+        batch_size=12,
         max_query_length=512,
         max_document_length=512,
         # score_name="dense_score",
@@ -91,10 +91,10 @@ def main(
         reranker_model_name_or_path,
         model_kwargs={
             "torch_dtype": torch.float16,
-            # "use_flash_attention_2": True,
+            "use_flash_attention_2": True,
             "low_cpu_mem_usage": True,
         },
-        device=4,
+        device=1,
     )
 
     # 2.4 load llm
@@ -104,17 +104,17 @@ def main(
     # query_wrapper_prompt = "Instruct: {query}\nOutput: "
     model = HuggingFaceLLM(
         model_name=llm_model_name_or_path,
-        device_map="auto",
-        # device_map="sequential",
+        # device_map="auto",
+        device_map="sequential",
         # uncomment this if using CUDA to reduce memory usage
         model_kwargs={
-            "torch_dtype": torch.float16,
+            # "torch_dtype": torch.float16,
             # "max_memory": {0: "40GiB", 1: "40GiB", 2: "40GiB"},
             # "use_flash_attention_2": True,
             "low_cpu_mem_usage": True,
         },
         tokenizer_kwargs={"max_length": 32768},
-        generate_kwargs={"max_new_tokens": 256, "temperature": 0, "do_sample": False, "prompt_lookup_num_tokens": 10},
+        generate_kwargs={"max_new_tokens": 1024, "temperature": 0.7, "do_sample": True, "prompt_lookup_num_tokens": 10},
         query_wrapper_prompt=query_wrapper_prompt,
     )
 
@@ -184,10 +184,10 @@ def main(
 
 
 if __name__ == "__main__":
-    # fire.Fire(main)
-    main(
-        input_csv_file="/home/bhuang/nlp/rag-race-challenge2-2024/challenge-2-dataset-and-documentation/dataset/train/input/questions.csv",
-        # input_document_dir="/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions-sample",
-        input_document_dir="/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions",
-        output_dir="/home/bhuang/nlp/rag-race-challenge2-2024/outputs",
-    )
+    fire.Fire(main)
+    # main(
+    #     input_csv_file="/home/bhuang/nlp/rag-race-challenge2-2024/challenge-2-dataset-and-documentation/dataset/train/input/questions.csv",
+    #     # input_document_dir="/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions-sample",
+    #     input_document_dir="/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions",
+    #     output_dir="/home/bhuang/nlp/rag-race-challenge2-2024/outputs",
+    # )
