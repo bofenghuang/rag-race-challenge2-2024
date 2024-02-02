@@ -18,7 +18,7 @@ conda activate /gpfswork/rech/eqm/commun/.conda/envs/rag-pipeline
 export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 
 
-git clone https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ $ALL_CCFRWORK/Mixtral-8x7B-Instruct-v0.1-AWQ
+# git clone https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ $ALL_CCFRWORK/Mixtral-8x7B-Instruct-v0.1-AWQ
 
 # python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model=mistralai/Mixtral-8x7B-Instruct-v0.1")'
 python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
