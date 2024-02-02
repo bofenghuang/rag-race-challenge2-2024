@@ -39,4 +39,4 @@ export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 # python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")'
 
 # python -c 'from sentence_transformers import SentenceTransformer; model = SentenceTransformer("BAAI/bge-m3"))'
-python -c 'from huggingface_hub import snapshot_download; snapshot_download(repo_id="BAAI/bge-m3", ignore_patterns=['flax_model.msgpack', 'rust_model.ot', 'tf_model.h5'])'
+python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='BAAI/bge-m3', ignore_patterns=['flax_model.msgpack', 'rust_model.ot', 'tf_model.h5'])"
