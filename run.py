@@ -162,17 +162,17 @@ def main(
     for query_input in query_inputs:
         dir_ = f"{output_dir}/prompts"
         os.makedirs(dir_, exist_ok=True)
-        with open(f"{dir_}/{query_input['id']}", "w") as f:
+        with open(f"{dir_}/{query_input['id']}.txt", "w") as f:
             f.write(query_input["prompt"])
 
         dir_ = f"{output_dir}/sources"
         os.makedirs(dir_, exist_ok=True)
-        with open(f"{dir_}/{query_input['id']}", "w") as f:
+        with open(f"{dir_}/{query_input['id']}.txt", "w") as f:
             f.write("\n".join(query_input["resources"]))
 
         dir_ = f"{output_dir}/answers"
         os.makedirs(dir_, exist_ok=True)
-        with open(f"{dir_}/{query_input['id']}", "w") as f:
+        with open(f"{dir_}/{query_input['id']}.txt", "w") as f:
             f.write(query_input["response"])
 
 
