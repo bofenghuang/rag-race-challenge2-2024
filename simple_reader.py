@@ -1,16 +1,62 @@
 #!/usr/bin/env python
 # coding=utf-8
 
+import os
 import re
+import uuid
 from functools import reduce
 from pathlib import Path
-import os
+from typing import Any, Dict, List, Optional
 
+# from llama_index.schema import Document
+from pydantic import BaseModel, Field
 from tqdm import tqdm
-from llama_index.schema import Document
+
+MAX_TOKENS = 512  # should be replaced
 
 
-max_tokens = 512  # should be repalced
+class Document(BaseModel):
+    id_: str = Field(
+        default_factory=lambda: str(uuid.uuid4()),
+        description="Unique ID of the node.",
+        # alias="doc_id",
+    )
+
+    text: str = Field(default="", description="Text content of the node.")
+
+    metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="A flat dictionary of metadata fields",
+        # alias="extra_info",
+    )
+
+    excluded_embed_metadata_keys: List[str] = Field(
+        default_factory=list,
+        description="Metadata keys that are excluded from text for the embed model.",
+    )
+    excluded_llm_metadata_keys: List[str] = Field(
+        default_factory=list,
+        description="Metadata keys that are excluded from text for the LLM.",
+    )
+
+    dense_embedding: Optional[Any] = Field(
+        default=None
+    )
+    sparse_embedding: Optional[Any] = Field(
+        default=None
+    )
+    colbert_embedding: Optional[Any] = Field(
+        default=None
+    )
+
+    def __setstate__(self, state: Dict[str, Any]) -> None:
+        # Use the __dict__ and __init__ method to set state
+        # so that all variable initialize
+        try:
+            self.__init__(**state["__dict__"])  # type: ignore
+        except Exception:
+            # Fall back to the default __setstate__ method
+            super().__setstate__(state)
 
 
 def get_file_metadata(file_path: str):
@@ -29,12 +75,8 @@ def get_file_metadata(file_path: str):
 def _normalize_markdown_text(markdown_text: str):
     # normalize header syntax
     # https://www.markdownguide.org/basic-syntax/#alternate-syntax
-    markdown_text = re.sub(
-        r"^(.*)\n={2,}\n", r"# \1\n", markdown_text, flags=re.MULTILINE
-    )
-    markdown_text = re.sub(
-        r"^(.*)\n-{2,}\n", r"## \1\n", markdown_text, flags=re.MULTILINE
-    )
+    markdown_text = re.sub(r"^(.*)\n={2,}\n", r"# \1\n", markdown_text, flags=re.MULTILINE)
+    markdown_text = re.sub(r"^(.*)\n-{2,}\n", r"## \1\n", markdown_text, flags=re.MULTILINE)
     return markdown_text
 
 
@@ -47,7 +89,7 @@ def split_long_chunks(doc):
     metadata = doc.metadata
     metadata["parent"] = doc.id_
     for split in splits[1:]:
-        if len((current_chunk + "\n\n" + split).split()) > max_tokens:
+        if len((current_chunk + "\n\n" + split).split()) > MAX_TOKENS:
             new_chunks.append(Document(text=current_chunk, metadata=metadata))
             current_chunk = split
         else:
@@ -83,9 +125,10 @@ class SimplerReader:
                 metadata["url"] = url
                 documents.append(Document(text=md_text, metadata=metadata))
 
-        documents_chunks = []
-        documents_smaller_chunks = []
-        documents_smaller_smaller_chunks = []
+        documents_chunks = []  # 1 diese
+        documents_smaller_chunks = []  # 2 diese
+        documents_smaller_smaller_chunks = []  # 3 diese
+        smallest_chunks = []  # split
 
         for document in documents:
             text = document.text
@@ -120,10 +163,9 @@ class SimplerReader:
                     metadata["parent"] = document.id_
                     doc = Document(text=chunk, metadata=metadata)
                     documents_smaller_smaller_chunks.append(doc)
-        smallest_chunks = []
 
         for el in documents_smaller_smaller_chunks:
-            if len(el.text.split()) > max_tokens:
+            if len(el.text.split()) > MAX_TOKENS:
                 smallest_chunks += split_long_chunks(el)
             else:
                 smallest_chunks.append(el)
@@ -140,5 +182,5 @@ class SimplerReader:
             documents_chunks,
             documents_smaller_chunks,
             documents_smaller_smaller_chunks,
-            smallest_chunks
+            smallest_chunks,
         )

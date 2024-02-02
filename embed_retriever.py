@@ -239,11 +239,18 @@ class BGEM3EmbedDocumentRetriever:
         return self.model.embed_single(query, max_length=self._max_query_length)
 
     def embed_documents(self, documents: List[Dict], **kwargs):
-        sentences = [doc["text"] for doc in documents]
+        sentences = [doc.text for doc in documents]
         embeddings = self.model.embed_multi(
             sentences, batch_size=self._batch_size, max_length=self._max_document_length, **kwargs
         )
-        documents = [{**doc, **{k: v[idx] for k, v in embeddings.items()}} for idx, doc in enumerate(documents)]
+
+        # documents = [{**doc, **{k: v[idx] for k, v in embeddings.items()}} for idx, doc in enumerate(documents)]
+        for idx, doc in enumerate(documents):
+            for k, v in embeddings.items():
+                # doc.__setattr__(k, v[idx])
+                setattr(doc, k, v[idx])
+            documents[idx] = doc
+
         return documents
 
     def __call__(self, query: str, documents: List[Dict]):
@@ -251,7 +258,7 @@ class BGEM3EmbedDocumentRetriever:
         embed_names = query_embedding.keys()
 
         document_embeddings = {
-            embed_name: torch.stack([doc[embed_name] for doc in documents], axis=0) for embed_name in embed_names
+            embed_name: torch.stack([getattr(doc, embed_name) for doc in documents], axis=0) for embed_name in embed_names
         }
 
         output = compute_scores(

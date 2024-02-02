@@ -56,7 +56,7 @@ class BM25CategoryRetriever:
         selected_categories = [doc_score_[0] for doc_score_ in doc_scores]
         logging.info(f"Selected the following categories: {selected_categories}")
 
-        return [doc for doc in documents if doc["plateform"] in selected_categories], selected_categories
+        return [doc for doc in documents if doc.metadata["platform"] in selected_categories], selected_categories
 
 
 class ModerateBM25CategoryRetriever(BM25CategoryRetriever):

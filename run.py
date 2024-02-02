@@ -7,7 +7,7 @@ os.environ["HF_HOME"] = "/projects/bhuang/.cache/huggingface"
 # os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["BITSANDBYTES_NOWELCOME"] = "1"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,2,3,4,0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 # os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
 import json
@@ -17,34 +17,34 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-import torch
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from llama_index.node_parser import LangchainNodeParser
-from llama_index import ServiceContext, SimpleDirectoryReader, VectorStoreIndex
-from llama_index.embeddings import HuggingFaceEmbedding
-from llama_index.indices.struct_store import JSONQueryEngine
-from llama_index.llms import HuggingFaceLLM
-from llama_index.postprocessor import SentenceTransformerRerank
-from llama_index.prompts import PromptTemplate
-from llama_index.query_engine import RetrieverQueryEngine
-from llama_index.retrievers import BM25Retriever
 
 from reader import NotSimpleDirectoryReader, get_file_metadata
 from category_retriever import ModerateBM25CategoryRetriever
 from embed_retriever import BGEM3EmbedModel, BGEM3EmbedDocumentRetriever
+from simple_reader import SimplerReader
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
-input_csv_file = "/home/bhuang/nlp/rag-race-challenge2-2024/challenge-2-dataset-and-documentation/dataset/train/input/questions.csv"
+input_csv_file = (
+    "/home/bhuang/nlp/rag-race-challenge2-2024/challenge-2-dataset-and-documentation/dataset/train/input/questions.csv"
+)
 
-input_dir = "/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions"
-# input_dir = "/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions-sample"
+# input_dir = "/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions"
+input_dir = "/home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions-sample"
 
 df = pd.read_csv(input_csv_file, sep=";")
 queries = df["question"].tolist()
 
 # # load documents
+
+documents, documents_chunks, documents_smaller_chunks, documents_smaller_smaller_chunks, smallest_chunks = SimplerReader(
+    input_dir
+).load_files()
+
+docs = smallest_chunks
+
+"""
 documents = NotSimpleDirectoryReader(
     input_dir=input_dir,
     exclude=["README.md"],
@@ -87,11 +87,13 @@ nodes = text_splitter.get_nodes_from_documents(documents)
 docs = [
     {
         "text": n.get_content("all"),
-        "plateform": n.metadata["platform"],
+        "platform": n.metadata["platform"],
     }
     for n in nodes
 ]
-doc_names = list(set([d["plateform"] for d in docs]))
+"""
+
+doc_names = list(set([d.metadata["platform"] for d in docs]))
 
 # todo: nbest
 category_document_retriever = ModerateBM25CategoryRetriever(
@@ -101,33 +103,33 @@ category_document_retriever = ModerateBM25CategoryRetriever(
 )
 
 # Setting use_fp16 to True speeds up computation with a slight performance degradation
-# embed_model = BGEM3EmbedModel("BAAI/bge-m3", use_fp16=True, device=0)
-# embed_document_retriever = BGEM3EmbedDocumentRetriever(
-#     embed_model,
-#     batch_size=12,
-#     max_query_length=512,
-#     max_document_length=512,
-#     # score_name="dense_score",
-#     # score_name = "sparse_dense_score",
-#     score_name="colbert_sparse_dense_score",
-#     # weights_for_different_modes = None,
-#     top_k=5,
-# )
+embed_model = BGEM3EmbedModel("BAAI/bge-m3", use_fp16=True, device=0)
+embed_document_retriever = BGEM3EmbedDocumentRetriever(
+    embed_model,
+    batch_size=12,
+    max_query_length=512,
+    max_document_length=512,
+    # score_name="dense_score",
+    # score_name = "sparse_dense_score",
+    score_name="colbert_sparse_dense_score",
+    # weights_for_different_modes = None,
+    top_k=5,
+)
 
-# docs = embed_document_retriever.embed_documents(docs)
+docs = embed_document_retriever.embed_documents(docs)
 
 # -- query stage
 
-# # query = "How is content moderation carried out on X?"
-# query = "How is content moderation carried out on twitter?"
-# # query = "I have access to a set of tweets URLs that I consider to be hateful. How can I use Twitter's API to monitor the average duration between the tweet's creation and its moderation?"
+# query = "How is content moderation carried out on X?"
+query = "How is content moderation carried out on twitter?"
+# query = "I have access to a set of tweets URLs that I consider to be hateful. How can I use Twitter's API to monitor the average duration between the tweet's creation and its moderation?"
 
-# docs_ = category_document_retriever(query, docs)
+docs_, _ = category_document_retriever(query, docs)
 
-# docs_ = embed_document_retriever(query, docs_)
-# print(docs_)
+docs_ = embed_document_retriever(query, docs_)
+print(docs_)
 
 # debug
-data = [{"query": query, "catgory": category_document_retriever(query, docs)[1]} for query in queries]
-df = pd.DataFrame(data)
-df.to_json("./tmp_query_category.json", orient="records", force_ascii=False)
+# data = [{"query": query, "catgory": category_document_retriever(query, docs)[1]} for query in queries]
+# df = pd.DataFrame(data)
+# df.to_json("./tmp_query_category.json", orient="records", force_ascii=False)
