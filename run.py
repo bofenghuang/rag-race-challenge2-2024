@@ -36,7 +36,7 @@ DEFAULT_TEXT_QA_PROMPT_TMPL = (
 )
 
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", stream=sys.stdout, level=logging.INFO)
 # logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 
@@ -98,18 +98,18 @@ def main(
     )
 
     # 2.4 load llm
-    llm_model_name_or_path = "mistralai/Mistral-7B-Instruct-v0.2"
+    # llm_model_name_or_path = "mistralai/Mistral-7B-Instruct-v0.2"
     # llm_model_name_or_path = "microsoft/phi-2"
     query_wrapper_prompt = "<s>[INST] {query} [/INST]"
     # query_wrapper_prompt = "Instruct: {query}\nOutput: "
     model = HuggingFaceLLM(
         model_name=llm_model_name_or_path,
-        # device_map="auto",
-        device_map="sequential",
+        device_map="auto",
+        # device_map="sequential",
         # uncomment this if using CUDA to reduce memory usage
         model_kwargs={
             "torch_dtype": torch.float16,
-            "max_memory": {0: "40GiB", 1: "40GiB", 2: "40GiB"},
+            # "max_memory": {0: "40GiB", 1: "40GiB", 2: "40GiB"},
             # "use_flash_attention_2": True,
             "low_cpu_mem_usage": True,
         },
@@ -181,6 +181,7 @@ def main(
         os.makedirs(dir_, exist_ok=True)
         with open(f"{dir_}/{query_input['id']}", "w") as f:
             f.write(query_input["response"])
+
 
 if __name__ == "__main__":
     # fire.Fire(main)

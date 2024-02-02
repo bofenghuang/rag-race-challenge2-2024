@@ -8,8 +8,10 @@ module load anaconda-py3/2023.03
 module load cuda/12.1.0
 conda activate /gpfswork/rech/eqm/commun/.conda/envs/rag-pipeline
 
-python -c 'from transformers import AutoProcessor; processor = AutoProcessor.from_pretrained("openai/whisper-large-v3")'
+# HF cache
+export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 
+# python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model=mistralai/Mixtral-8x7B-Instruct-v0.1")'
+python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
 python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")'
-python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
-python -c 'from transformers import pipeline; pipe = pipeline("text-generation", model="TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ")'
+python -c 'from sentence_transformers import SentenceTransformer; model = SentenceTransformer("BAAI/bge-m3"))'

@@ -24,12 +24,3 @@ conda activate /gpfswork/rech/eqm/commun/.conda/envs/rag-pipeline
 # HF cache
 export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 
-# WANDB related
-export WANDB_MODE=offline
-# export WANDB_DISABLED=true
-# export WANDB_API_KEY=YOUR_WANDB_API_KEY
-# export WANDB_ENTITY=YOUR_WANDB_ENTITY
-export WANDB_PROJECT=hf-whisper-v3
-
-# https://github.com/pytorch/audio/issues/1021#issuecomment-726915239
-export OMP_NUM_THREADS="1"
