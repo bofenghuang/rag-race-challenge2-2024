@@ -5,7 +5,7 @@
 #SBATCH --error=logs/%x/%j.err # error file (%j = job ID)
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1          # crucial - only 1 task per dist per node!
-#SBATCH --cpus-per-task=64         # number of cores per tasks
+#SBATCH --cpus-per-task=16         # number of cores per tasks
 #SBATCH --gres=gpu:2 # reserve 8 GPUs per node
 #SBATCH --time 0:30:00              # maximum execution time (HH:MM:SS)
 #SBATCH --qos=qos_gpu-t3             # QoS
@@ -28,7 +28,8 @@ export HF_HOME="$ALL_CCFRWORK/.cache/huggingface"
 # models
 embed_model_name_or_path="BAAI/bge-m3"
 reranker_model_name_or_path="mistralai/Mistral-7B-Instruct-v0.2"
-llm_model_name_or_path="/gpfsdswork/dataset/HuggingFace_Models/TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ"
+# llm_model_name_or_path="/gpfsdswork/dataset/HuggingFace_Models/TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ"
+llm_model_name_or_path="/gpfsdswork/dataset/HuggingFace_Models/mistralai/Mixtral-8x7B-Instruct-v0.1"
 
 # data
 input_csv_file="./challenge-2-dataset-and-documentation/dataset/train/input/questions.csv"
