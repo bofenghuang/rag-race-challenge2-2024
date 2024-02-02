@@ -39,6 +39,7 @@ class Document(BaseModel):
     dense_embedding: Optional[Any] = Field(default=None)
     sparse_embedding: Optional[Any] = Field(default=None)
     colbert_embedding: Optional[Any] = Field(default=None)
+    embed_score: Optional[Any] = Field(default=None)
 
     def get_metadata_str(self):
         return "\n".join([f"{k}: {v}" for k, v in self.metadata.items()])

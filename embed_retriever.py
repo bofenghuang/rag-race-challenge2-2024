@@ -270,9 +270,15 @@ class BGEM3EmbedDocumentRetriever:
 
         sorted_result_tups = sorted(enumerate(scores), key=lambda x: x[1], reverse=True)
         sorted_result_tups = sorted_result_tups[: self._top_k]
-        result_ids, result_similarities = list(zip(*sorted_result_tups))
+        # result_ids, result_similarities = list(zip(*sorted_result_tups))
+        # retrieved_documents = [documents[idx] for idx in result_ids]
 
-        retrieved_documents = [documents[idx] for idx in result_ids]
+        retrieved_documents = []
+        for idx, sim in sorted_result_tups:
+            doc = documents[idx]
+            doc.embed_score = sim
+            retrieved_documents.append(doc)
+
         # remove embedding
         # retrieved_documents = [{k: v for k, v in doc if k not in embed_names} for doc in retrieved_documents]
         logging.info(f"{self.__class__} retrieved {len(retrieved_documents)} documents from {len(documents)}")

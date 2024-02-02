@@ -46,7 +46,8 @@ def main(
     output_dir: str,
     embed_model_name_or_path: str = "BAAI/bge-m3",
     reranker_model_name_or_path: str = "mistralai/Mistral-7B-Instruct-v0.2",
-    llm_model_name_or_path: str = "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    # llm_model_name_or_path: str = "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    llm_model_name_or_path: str = "TheBloke/Mixtral-8x7B-Instruct-v0.1-AWQ",
 ):
     # 1. load and preprocess documents and queries
     # 1.1. load documents
@@ -88,12 +89,16 @@ def main(
     # 2.3 load reranker
     reranker = Reranker(
         reranker_model_name_or_path,
-        model_kwargs={"torch_dtype": torch.float16},
+        model_kwargs={
+            "torch_dtype": torch.float16,
+            # "use_flash_attention_2": True,
+            "low_cpu_mem_usage": True,
+        },
         device=4,
     )
 
     # 2.4 load llm
-    # llm_model_name_or_path = "mistralai/Mistral-7B-Instruct-v0.2"
+    llm_model_name_or_path = "mistralai/Mistral-7B-Instruct-v0.2"
     # llm_model_name_or_path = "microsoft/phi-2"
     query_wrapper_prompt = "<s>[INST] {query} [/INST]"
     # query_wrapper_prompt = "Instruct: {query}\nOutput: "
@@ -105,6 +110,8 @@ def main(
         model_kwargs={
             "torch_dtype": torch.float16,
             "max_memory": {0: "40GiB", 1: "40GiB", 2: "40GiB"},
+            # "use_flash_attention_2": True,
+            "low_cpu_mem_usage": True,
         },
         tokenizer_kwargs={"max_length": 32768},
         generate_kwargs={"max_new_tokens": 256, "temperature": 0, "do_sample": False, "prompt_lookup_num_tokens": 10},
