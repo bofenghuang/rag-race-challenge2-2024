@@ -68,8 +68,8 @@ def main(
     # 2.2.2 load embedding retriever
     embed_document_retriever = BGEM3EmbedDocumentRetriever(
         embed_model,
-        # batch_size=4,
-        batch_size=12,
+        batch_size=4,
+        # batch_size=12,
         max_query_length=512,
         max_document_length=512,
         # score_name="dense_score",
