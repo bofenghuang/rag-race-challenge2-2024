@@ -1,9 +1,0 @@
-platform: Facebook
-topic: Instagram-API
-subtopic: Instagram API Documentation
-file_path: /home/bhuang/nlp/rag-race-challenge2-2024/platform-docs-versions/Facebook_Instagram-API/Instagram API Documentation.md
-url: https://developers.facebook.com/docs/instagram-api/changelog
-
-# Changelog
-
-This changelog refers to changes made for the Instagram Graph API.
