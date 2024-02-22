@@ -1,9 +1,13 @@
+# DSA RAG Race Solution
 
-*Interact with json*
+The RAG pipeline submitted to the [Challenge #2 – DSA RAG Race](https://hackathon.peren.fr/challenge-2) by Team 3xPlusDePiment (Bofeng Huang, Moussa Kamal Eddine, Lorraine Vanel)
 
-- [*llama_index - JSON Query Engine*](https://docs.llamaindex.ai/en/stable/examples/query_engine/json_query_engine.html)
-- [*langchain - agent interacting with large JSON/dict objects*](https://python.langchain.com/docs/integrations/toolkits/json)
-- [*How do i pass complex and nested large json data as input to open ai model*](https://www.reddit.com/r/OpenAI/comments/15xfcuk/how_do_i_pass_complex_and_nested_large_json_data/)
+## Usage
 
-JSON data highly structured but not standardized; much info resides under `other_information`
+```bash
+# clone repo with submodules
+git clone --recurse-submodules https://github.com/bofenghuang/rag-race-challenge2-2024.git
 
+# need 2x A100
+sbatch run.sh
+```
